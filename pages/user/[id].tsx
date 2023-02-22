@@ -7,10 +7,7 @@ export default function UserPage() {
     const { query } = useRouter();
     const { data, error, isLoading } = useSwr<IUser>(
         query.id ? `/api/user/${query.id}` : null,
-        fetcher,
-        {
-            refreshInterval: 10000
-        }
+        fetcher
     );
 
     if (error) return <div>Failed to load user</div>;

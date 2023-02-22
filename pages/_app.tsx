@@ -13,6 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <DefaultSeo {...SEO} />
             <SWRConfig
                 value={{
+                    refreshInterval: 0,
                     onError: (error, key) => {
                         if (navigator.onLine) {
                             if (error.status == 403 && error.status == 404) {
