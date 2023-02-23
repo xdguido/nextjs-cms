@@ -1,24 +1,33 @@
 import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { createRouter } from 'next-connect';
+import { ErrorCode, Exception } from '../../../lib/api/errorException';
+import errorHandler from '../../../lib/api/errorHandler';
+import noMatchHandler from '../../../lib/api/noMatchHandler';
+
+const router = createRouter<NextApiRequest, NextApiResponse>();
 
 const prisma = new PrismaClient();
-export default async function userHandler(req: NextApiRequest, res: NextApiResponse) {
+router.get(async (req, res, next) => {
     try {
-        const { query, method } = req;
+        const { query } = req;
         const userId = Number(query.id);
-        switch (method) {
-            case 'GET':
-                // Get data from your database
-                const user = await prisma.user.findUnique({ where: { id: userId } });
-                res.status(200).json({ id: user.id, name: user.name });
-                break;
-            default:
-                res.setHeader('Allow', ['GET', 'PUT']);
-                res.status(405).end(`Method ${method} Not Allowed`);
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (user) {
+            return res.status(200).json({ id: user.id, name: user.name });
         }
+        throw new Exception(ErrorCode.NotFound);
     } catch (e) {
-        res.status(500);
+        if (e instanceof Exception) {
+            return next();
+        }
+        throw new Error(e);
     } finally {
         await prisma.$disconnect();
     }
-}
+});
+
+export default router.handler({
+    onError: errorHandler,
+    onNoMatch: noMatchHandler
+});
