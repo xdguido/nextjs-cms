@@ -13,14 +13,14 @@ export default function App({ Component, pageProps }: AppProps) {
             <DefaultSeo {...SEO} />
             <SWRConfig
                 value={{
-                    refreshInterval: 0,
+                    errorRetryCount: 0,
                     onError: (error, key) => {
                         if (navigator.onLine) {
-                            if (error.status == 403 && error.status == 404) {
-                                toast.error('Oops');
+                            if (error.status == 403 || error.status == 404) {
+                                toast.error(error.message);
                             }
                             if (error.status == 500) {
-                                toast.error('Server error');
+                                toast.error(error.message);
                             }
                         }
                     }

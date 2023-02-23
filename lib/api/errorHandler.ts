@@ -10,9 +10,9 @@ export default function errorHandler(
         return res.status(err.status).send(err);
     }
     console.error(err);
-    return res.status(400).send({
+    return res.status(500).send({
         name: ErrorCode.UnknownError,
-        status: 400,
+        status: 500,
         stack: process.env.NODE_ENV === 'production' ? null : err.stack
     });
 }
