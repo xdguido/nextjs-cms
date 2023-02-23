@@ -1,1 +1,1 @@
-This is a starter code for a Next.js app with Prisma ORM and PostreSQL.
+This is a Content Management Service app built with Next.js, Prisma ORM and PostreSQL.
