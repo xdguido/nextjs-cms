@@ -1,17 +1,21 @@
 import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
+import { Exception } from '../../lib/api/errorException';
 import errorHandler from '../../lib/api/errorHandler';
 import noMatchHandler from '../../lib/api/noMatchHandler';
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
 const prisma = new PrismaClient();
-router.get(async (req, res) => {
+router.get(async (req, res, next) => {
     try {
         const users = await prisma.user.findMany();
         res.status(200).json(users);
     } catch (e) {
+        if (e instanceof Exception) {
+            return next();
+        }
         throw new Error(e);
     } finally {
         await prisma.$disconnect();
