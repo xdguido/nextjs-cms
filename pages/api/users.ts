@@ -6,8 +6,8 @@ import noMatchHandler from '../../lib/api/noMatchHandler';
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
+const prisma = new PrismaClient();
 router.get(async (req, res) => {
-    const prisma = new PrismaClient();
     try {
         const users = await prisma.user.findMany();
         res.status(200).json(users);

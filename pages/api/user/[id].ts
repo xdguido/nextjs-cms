@@ -1,9 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+const prisma = new PrismaClient();
 export default async function userHandler(req: NextApiRequest, res: NextApiResponse) {
-    const prisma = new PrismaClient();
-
     try {
         const { query, method } = req;
         const userId = Number(query.id);
