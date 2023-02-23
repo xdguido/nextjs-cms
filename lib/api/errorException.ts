@@ -3,7 +3,7 @@ export class Exception extends Error {
     metaData: string;
     clientString: { [key: string]: string };
 
-    constructor(code: string, cause?: string | Error, metaData?: string) {
+    constructor(code: ErrorCode, cause?: string | Error, metaData?: string) {
         super(code);
         Object.setPrototypeOf(this, new.target.prototype);
         this.name = code;
@@ -84,28 +84,18 @@ export class Exception extends Error {
     }
 }
 
-export class ErrorCode {
+export enum ErrorCode {
     // status 400-499
-
-    static Unauthenticated = 'Unauthenticated';
-
-    static Forbidden = 'Forbidden';
-
-    static Duplicated = 'Duplicated';
-
-    static UnverifiedAccount = 'UnverifiedAccount';
-
-    static InvalidCredentials = 'InvalidCredentials';
-
-    static InvalidInput = 'InvalidInput';
-
-    static InvalidEmail = 'InvalidEmail';
-
-    static RequestLimit = 'RequestLimit';
-
-    static NotFound = 'NotFound';
+    Unauthenticated = 'Unauthenticated',
+    Forbidden = 'Forbidden',
+    Duplicated = 'Duplicated',
+    UnverifiedAccount = 'UnverifiedAccount',
+    InvalidCredentials = 'InvalidCredentials',
+    InvalidInput = 'InvalidInput',
+    InvalidEmail = 'InvalidEmail',
+    RequestLimit = 'RequestLimit',
+    NotFound = 'NotFound',
 
     // status 500-599
-
-    static UnknownError = 'UnknownError';
+    UnknownError = 'UnknownError'
 }
