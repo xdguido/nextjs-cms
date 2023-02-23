@@ -1,7 +1,15 @@
+import { Exception } from './api/errorException';
+
 class FetchError extends Error {
-    constructor(public readonly status: number, message?: string) {
+    clientString: { [key: string]: string };
+    constructor(
+        public readonly status: number,
+        message: string,
+        clientString: { [key: string]: string }
+    ) {
         super(message);
         this.name = 'FetchError';
+        this.clientString = clientString;
     }
 }
 
@@ -25,8 +33,10 @@ export default async function fetcher(url: string) {
     clearTimeout(timeoutId);
 
     if (!res.ok) {
-        const message = res.statusText;
-        throw new FetchError(res.status, message);
+        const error: Exception = await res.json();
+        const message = error.name;
+        const clientString = error.clientString;
+        throw new FetchError(res.status, message, clientString);
     }
 
     return parseResponse(res);
