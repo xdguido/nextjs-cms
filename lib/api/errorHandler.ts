@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ErrorCode, Exception } from '../../lib/api/errorException';
+import { ErrorCode, Exception } from '@lib/api/errorException';
 
 export function errorHandler(err: Exception | Error, req: NextApiRequest, res: NextApiResponse) {
     if (err instanceof Exception) {

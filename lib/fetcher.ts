@@ -1,4 +1,4 @@
-import { Exception } from './api/errorException';
+import { Exception } from '@lib/api/errorException';
 
 class FetchError extends Error {
     clientString: { [key: string]: string };

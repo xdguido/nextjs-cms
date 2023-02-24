@@ -1,7 +1,7 @@
 import type { User } from '@prisma/client';
 import Link from 'next/link';
 import useSwr from 'swr';
-import fetcher from '../lib/fetcher';
+import fetcher from '@lib/fetcher';
 
 export default function Index() {
     const { data, error, isLoading } = useSwr<User[]>('/api/users', fetcher);

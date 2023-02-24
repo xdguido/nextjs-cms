@@ -1,7 +1,7 @@
 import type { User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import useSwr from 'swr';
-import fetcher from '../../lib/fetcher';
+import fetcher from '@lib/fetcher';
 
 export default function UserPage() {
     const { query } = useRouter();
