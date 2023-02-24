@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ErrorCode, Exception } from '@lib/api/errorException';
 
-export function errorHandler(err: Exception | Error, req: NextApiRequest, res: NextApiResponse) {
+export function errorHandler(err: Exception | Error, _: NextApiRequest, res: NextApiResponse) {
     if (err instanceof Exception) {
         return res.status(err.status).send(err);
     }
@@ -11,7 +11,7 @@ export function errorHandler(err: Exception | Error, req: NextApiRequest, res: N
     return res.status(500).send(unknownErr);
 }
 
-export function noMatchHandler(req: NextApiRequest, res: NextApiResponse) {
+export function noMatchHandler(_: NextApiRequest, res: NextApiResponse) {
     const matchErr = new Exception(ErrorCode.MethodNotAllowed);
     return res.status(matchErr.status).send(matchErr);
 }
