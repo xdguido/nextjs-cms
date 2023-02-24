@@ -3,7 +3,12 @@
  */
 const nextConfig = {
     /* config options here */
-    reactStrictMode: true
+    reactStrictMode: true,
+    i18n: {
+        locales: ['en', 'es'],
+        defaultLocale: 'en',
+        localeDetection: false
+    }
 };
 
 module.exports = nextConfig;

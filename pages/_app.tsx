@@ -3,11 +3,13 @@ import { ThemeProvider } from 'next-themes';
 import { AppProps } from 'next/app';
 import toast, { Toaster } from 'react-hot-toast';
 import { SWRConfig } from 'swr';
+import { useRouter } from 'next/router';
 import '../styles/globals.css';
 
 import SEO from '../next-seo.config';
 
 export default function App({ Component, pageProps }: AppProps) {
+    const { locale } = useRouter();
     return (
         <ThemeProvider enableSystem={true} attribute="class">
             <DefaultSeo {...SEO} />
@@ -15,10 +17,18 @@ export default function App({ Component, pageProps }: AppProps) {
                 value={{
                     errorRetryCount: 0,
                     onError: (error, key) => {
-                        if (navigator.onLine) {
-                            return toast.error(error.clientString.en);
+                        switch (locale) {
+                            case 'es':
+                                if (navigator.onLine) {
+                                    return toast.error(error.clientString.es);
+                                }
+                                return toast.error('Sin conexion de internet');
+                            default:
+                                if (navigator.onLine) {
+                                    return toast.error(error.clientString.en);
+                                }
+                                return toast.error('No internet connection');
                         }
-                        return toast.error('No internet connection');
                     }
                 }}
             >
