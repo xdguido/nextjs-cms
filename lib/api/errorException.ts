@@ -65,8 +65,8 @@ const errorConfigMap: Record<ErrorCode, ErrorConfig> = {
     [ErrorCode.NotFound]: {
         status: 404,
         clientString: {
-            en: 'Content Not found',
-            es: 'Contenido No encontrado'
+            en: 'Content not found',
+            es: 'Contenido no encontrado'
         }
     },
     [ErrorCode.MethodNotAllowed]: {
