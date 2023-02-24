@@ -26,6 +26,8 @@ module.exports = {
             2,
             'always',
             [
+                'config',
+                'init',
                 'build',
                 'chore',
                 'ci',
