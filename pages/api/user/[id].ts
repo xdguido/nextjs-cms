@@ -6,9 +6,8 @@ import errorHandler from '../../../lib/api/errorHandler';
 import noMatchHandler from '../../../lib/api/noMatchHandler';
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
-
 const prisma = new PrismaClient();
-router.get(async (req, res, next) => {
+router.get(async (req, res) => {
     try {
         const { query } = req;
         const userId = Number(query.id);
@@ -17,11 +16,6 @@ router.get(async (req, res, next) => {
             return res.status(200).json({ id: user.id, name: user.name });
         }
         throw new Exception(ErrorCode.NotFound);
-    } catch (e) {
-        if (e instanceof Exception) {
-            return next();
-        }
-        throw new Error(e);
     } finally {
         await prisma.$disconnect();
     }
