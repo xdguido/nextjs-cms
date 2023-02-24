@@ -25,12 +25,7 @@ async function parseResponse(res: Response): Promise<any> {
 }
 
 export default async function fetcher(url: string) {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-    const res = await fetch(url, { signal: controller.signal });
-
-    clearTimeout(timeoutId);
+    const res = await fetch(url);
 
     if (!res.ok) {
         const error: Exception = await res.json();
