@@ -16,13 +16,9 @@ export default function App({ Component, pageProps }: AppProps) {
                     errorRetryCount: 0,
                     onError: (error, key) => {
                         if (navigator.onLine) {
-                            if (error.status == 403 || error.status == 404) {
-                                toast.error(error.clientString.en);
-                            }
-                            if (error.status == 500) {
-                                toast.error(error.clientString.en);
-                            }
+                            return toast.error(error.clientString.en);
                         }
+                        return toast.error('No internet connection');
                     }
                 }}
             >
