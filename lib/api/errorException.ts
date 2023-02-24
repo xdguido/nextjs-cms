@@ -13,6 +13,7 @@ export enum ErrorCode {
     InvalidInput = 'InvalidInput',
     RequestLimit = 'RequestLimit',
     NotFound = 'NotFound',
+    MethodNotAllowed = 'MethodNotAllowed',
 
     // status 500-599
     UnknownError = 'UnknownError'
@@ -66,6 +67,13 @@ const errorConfigMap: Record<ErrorCode, ErrorConfig> = {
         clientString: {
             en: 'Content Not found',
             es: 'Contenido No encontrado'
+        }
+    },
+    [ErrorCode.MethodNotAllowed]: {
+        status: 405,
+        clientString: {
+            en: 'Method not allowed',
+            es: 'Metodo no permitido'
         }
     },
     [ErrorCode.RequestLimit]: {
